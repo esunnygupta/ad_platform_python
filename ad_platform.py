@@ -2,6 +2,7 @@
 
 import json
 import http.client
+import subprocess
 import urllib.request
 import paho.mqtt.client as mqtt
 from pathlib import Path
@@ -32,7 +33,7 @@ def on_message(client, userdata, msg):
     file_exists = Path(campaign_name)
     if file_exists.exists():
         # start player
-        print("Invoke Player")
+        subprocess.run(["cvlc", "-f", "--no-video-title-show", "--play-and-exit", campaign_name])
 
 def schedule():
     http_connection = http.client.HTTPConnection('3.109.20.0')
